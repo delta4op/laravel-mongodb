@@ -1,9 +1,9 @@
 <?php
 
-namespace Delta4op\MongoODM\Traits;
+namespace Delta4op\Mongodb\Traits;
 
-use Delta4op\MongoODM\DocumentRepositories\DocumentRepository;
-use Delta4op\MongoODM\Facades\Mongodb;
+use Delta4op\Mongodb\DocumentRepositories\DocumentRepository;
+use Delta4op\Mongodb\Facades\Mongodb;
 
 trait HasRepository
 {

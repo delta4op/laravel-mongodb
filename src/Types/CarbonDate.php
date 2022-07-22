@@ -1,6 +1,6 @@
 <?php
 
-namespace Delta4op\MongoODM\Types;
+namespace Delta4op\Mongodb\Types;
 
 use Carbon\Carbon;
 use Doctrine\ODM\MongoDB\Types\ClosureToPHP;

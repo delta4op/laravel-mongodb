@@ -59,10 +59,10 @@ return [
 
 ## Accessing document manager
 ```php
-MongoDB::manager()->persist($document);
+Mongodb::manager()->persist($document);
 
 // specify connection
-MongoDB::manager('db2')->persist($document);
+Mongodb::manager('db2')->persist($document);
 
 // helper method
 dm('db2')->persist($document);

@@ -1,11 +1,11 @@
 <?php
 
-namespace Delta4op\MongoODM;
+namespace Delta4op\Mongodb;
 
 use Doctrine\ODM\MongoDB\Types\Type;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\DatabaseManager;
-use Delta4op\MongoODM\Types\CarbonDate;
+use Delta4op\Mongodb\Types\CarbonDate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

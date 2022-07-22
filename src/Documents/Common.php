@@ -1,8 +1,8 @@
 <?php
 
-namespace Delta4op\MongoODM\Documents;
+namespace Delta4op\Mongodb\Documents;
 
-use Delta4op\MongoODM\Traits\CanFillClassProperties;
+use Delta4op\Mongodb\Traits\CanFillClassProperties;
 
 trait Common
 {

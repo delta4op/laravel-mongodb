@@ -1,6 +1,6 @@
 <?php
 
-namespace Delta4op\MongoODM\Documents;
+namespace Delta4op\Mongodb\Documents;
 
 use Illuminate\Contracts\Support\Arrayable;
 

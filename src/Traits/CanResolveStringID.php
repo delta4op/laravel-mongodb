@@ -1,6 +1,6 @@
 <?php
 
-namespace Delta4op\MongoODM\Traits;
+namespace Delta4op\Mongodb\Traits;
 
 trait CanResolveStringID
 {

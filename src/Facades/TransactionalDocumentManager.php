@@ -1,5 +1,5 @@
 <?php
-namespace Delta4op\MongoODM\Facades;
+namespace Delta4op\Mongodb\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

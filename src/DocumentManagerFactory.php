@@ -1,8 +1,8 @@
 <?php
 
-namespace Delta4op\MongoODM;
+namespace Delta4op\Mongodb;
 
-use Delta4op\MongoODM\Managers\DocumentManager;
+use Delta4op\Mongodb\Managers\DocumentManager;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager as DoctrineDocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;

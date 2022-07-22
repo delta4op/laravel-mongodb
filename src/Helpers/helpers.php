@@ -1,7 +1,7 @@
 <?php
 
-use Delta4op\MongoODM\Facades\Mongodb;
-use Delta4op\MongoODM\Managers\DocumentManager;
+use Delta4op\Mongodb\Facades\Mongodb;
+use Delta4op\Mongodb\Managers\DocumentManager;
 
 if (!function_exists('documentManager')) {
     /**

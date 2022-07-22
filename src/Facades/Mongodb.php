@@ -1,8 +1,8 @@
 <?php
-namespace Delta4op\MongoODM\Facades;
+namespace Delta4op\Mongodb\Facades;
 
-use Delta4op\MongoODM\Managers\DocumentManager;
-use Delta4op\MongoODM\MongoContainer;
+use Delta4op\Mongodb\Managers\DocumentManager;
+use Delta4op\Mongodb\MongoContainer;
 use Illuminate\Support\Facades\Facade;
 
 /**

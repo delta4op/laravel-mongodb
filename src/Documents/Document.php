@@ -1,9 +1,9 @@
 <?php
 
-namespace Delta4op\MongoODM\Documents;
+namespace Delta4op\Mongodb\Documents;
 
-use Delta4op\MongoODM\Repositories\DocumentRepository;
-use Delta4op\MongoODM\Facades\Mongodb;
+use Delta4op\Mongodb\Repositories\DocumentRepository;
+use Delta4op\Mongodb\Facades\Mongodb;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use Illuminate\Support\Str;
 

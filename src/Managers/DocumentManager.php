@@ -1,6 +1,6 @@
 <?php
 
-namespace Delta4op\MongoODM\Managers;
+namespace Delta4op\Mongodb\Managers;
 
 use Doctrine\Common\EventManager;
 use Doctrine\ODM\MongoDB\Configuration;

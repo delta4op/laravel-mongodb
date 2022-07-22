@@ -1,6 +1,6 @@
 <?php
 
-namespace Delta4op\MongoODM\Repositories;
+namespace Delta4op\Mongodb\Repositories;
 
 use Doctrine\ODM\MongoDB\Repository\DocumentRepository as BaseDocumentRepository;
 use Illuminate\Support\Collection;
