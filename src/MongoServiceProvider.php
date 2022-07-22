@@ -5,7 +5,6 @@ namespace Delta4op\MongoODM;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Illuminate\Database\Connectors\ConnectionFactory;
 use Illuminate\Database\DatabaseManager;
-use Illuminate\Support\ServiceProvider;
 use Delta4op\MongoODM\Types\CarbonDate;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;

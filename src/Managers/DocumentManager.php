@@ -64,7 +64,7 @@ class DocumentManager extends BaseDocumentManager
     }
 
     /**
-     * Start session if it exist
+     * Start session if it exists
      * Throws error if session does not exist
      *
      * @param array $options

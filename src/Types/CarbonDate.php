@@ -11,19 +11,23 @@ class CarbonDate extends Type
 {
     use ClosureToPHP;
 
-    public function convertToDatabaseValue($value)
+    public function convertToDatabaseValue($value): ?UTCDateTime
     {
-        return new UTCDateTime($value);
+        return !$value ? new UTCDateTime($value) : null;
     }
 
-    public function convertToPHPValue($value)
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
+    public function convertToPHPValue($value): mixed
     {
         if ($value === null) {
             return null;
         }
 
         if ($value instanceof UTCDateTime){
-            return (new Carbon($value->toDateTime()))->timezone('Asia/Kolkata');
+            return (new Carbon($value->toDateTime()));
         }
 
         return $value;

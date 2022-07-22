@@ -1,6 +1,7 @@
 {
     "name": "delta4op/laravel-mongodb-odm",
     "description": "A lightweight Laravel wrapper around Doctrine's mongodb-odm Document Mapper",
+    "licent": "MIT",
     "authors": [
         {
             "name": "Ravish",
@@ -52,10 +53,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Delta4op\\Mongodb\\MongoServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "Mongodb": "Delta4op\\Mongodb\\Facades\\Mongodb"
             }
         }
     },
