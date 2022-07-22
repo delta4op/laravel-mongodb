@@ -8,7 +8,7 @@
 
 [comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/:vendor_slug/:package_slug&#41;)
 
-This package is a laravel friendly wrapper around [mongodb-odm](https://github.com/doctrine/mongodb-odm) package which supports multiple connections and transactions (use with caution). The package provides a PHP object mapping functionality for MongoDB.
+This package is a laravel friendly wrapper around [mongodb-odm](https://github.com/doctrine/mongodb-odm) library which provides a PHP object mapping functionality for MongoDB. This package which supports multiple connections and multi-collection transactions (use with caution).
 
 ## Installation
 
