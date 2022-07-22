@@ -57,9 +57,7 @@ return [
 ];
 ```
 
-## Usage
-
-### Accessing document manager
+## Accessing document manager
 ```php
 MongoDB::manager()->persist($document);
 
@@ -70,6 +68,36 @@ MongoDB::manager('db2')->persist($document);
 dm('db2')->persist($document);
 ```
 
+## Multi Collection Transactions
+```php
+dm()->startTransaction();
+try {
+    
+    // your code that will probably have
+    // multiple document persists
+    
+    dm()->flush(['session' => tdm()->getSession()]);
+    dm()->commitTransaction();
+} catch (Exception $exception) {
+    dm()->abortTransaction();
+    throw $exception;
+}
+```
+## Custom Types
+The package comes with Carbon type support. You can create your own type by extending `Doctrine\ODM\MongoDB\Types\Type` and add it to the `MongoServiceProvider`
+```php
+class MongoServiceProvider extends PackageServiceProvider
+{
+    /**
+     * Custom type mappings
+     *
+     * @var array
+     */
+    public array $types = [
+        'customType' => CustomType::class
+    ];
+}
+```
 ## Testing
 
 ```bash
@@ -79,14 +107,6 @@ composer test
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
-
-## Contributing
-
-Please see [CONTRIBUTING](https://github.com/:author_username/.github/blob/main/CONTRIBUTING.md) for details.
-
-## Security Vulnerabilities
-
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
 
 ## Credits
 
