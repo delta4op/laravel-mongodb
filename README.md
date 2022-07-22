@@ -59,6 +59,7 @@ return [
 
 ## Usage
 
+### Accessing document manager
 ```php
 MongoDB::manager()->persist($document);
 
