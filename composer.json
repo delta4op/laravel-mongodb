@@ -1,5 +1,5 @@
 {
-    "name": "delta4op/laravel-mongodb-odm",
+    "name": "delta4op/laravel-mongodb",
     "description": "A lightweight Laravel wrapper around Doctrine's mongodb-odm Document Mapper",
     "licent": "MIT",
     "authors": [

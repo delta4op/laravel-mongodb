@@ -69,6 +69,8 @@ dm('db2')->persist($document);
 ```
 
 ## Multi Collection Transactions
+This approach is only possible if you do not rely on the built-in events system of doctrine, because odm is not aware of the transaction and fires the “post-flush” events as soon as the db command is executed.
+The other problem is that after a rollback the unit of work is in an inconsistent state which must be handled “manually” (e.g. clear or restore the state the uow had before the flush call).
 ```php
 dm()->startTransaction();
 try {
