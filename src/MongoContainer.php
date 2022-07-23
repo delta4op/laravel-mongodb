@@ -41,10 +41,11 @@ class MongoContainer
     public function __construct($app, DocumentManagerFactory $factory)
     {
         $this->app = $app;
+        $this->factory = $factory;
     }
 
     /**
-     * @param null $name
+     * @param string|null $name
      * @return DocumentManager
      * @throws MongoDBException
      */
