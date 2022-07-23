@@ -18,7 +18,7 @@ class MongoServiceProvider extends PackageServiceProvider
 
     public function configurePackage(Package $package): void
     {
-        $package->name('laravel-mongodb')->hasConfigFile('mongodb');
+        $package->name('delta4op/laravel-mongodb')->hasConfigFile('mongodb');
     }
 
     /**
