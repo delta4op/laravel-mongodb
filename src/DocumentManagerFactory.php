@@ -4,7 +4,6 @@ namespace Delta4op\Mongodb;
 
 use Delta4op\Mongodb\Managers\DocumentManager;
 use Doctrine\ODM\MongoDB\Configuration;
-use Doctrine\ODM\MongoDB\DocumentManager as DoctrineDocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use MongoDB\Client;
@@ -15,14 +14,14 @@ class DocumentManagerFactory
 
     /**
      * @param $config
-     * @return DoctrineDocumentManager
+     * @return DocumentManager
      * @throws MongoDBException
      */
-    public function make($config): DoctrineDocumentManager
+    public function make($config): DocumentManager
     {
         // todo validate connection config array
 
-        return DoctrineDocumentManager::create(
+        return DocumentManager::create(
             $this->makeConnection($config),
             $this->makeConfiguration($config)
         );

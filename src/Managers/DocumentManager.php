@@ -20,9 +20,9 @@ class DocumentManager extends BaseDocumentManager
      */
     private Session $session;
 
-    public static function create(?Client $client = null, ?Configuration $config = null, ?EventManager $eventManager = null): BaseDocumentManager
+    public static function create(?Client $client = null, ?Configuration $config = null, ?EventManager $eventManager = null): DocumentManager
     {
-        return self::create($client, $config, $eventManager);
+        return static::create($client, $config, $eventManager);
     }
 
     /**
