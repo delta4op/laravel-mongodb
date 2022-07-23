@@ -8,7 +8,7 @@
 
 [comment]: <> ([![Total Downloads]&#40;https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square&#41;]&#40;https://packagist.org/packages/:vendor_slug/:package_slug&#41;)
 
-This package is a laravel friendly wrapper around [mongodb-odm](https://github.com/doctrine/mongodb-odm) package which supports multiple connections and transactions (use with caution). The package provides a PHP object mapping functionality for MongoDB.
+This package is a laravel friendly wrapper around [mongodb-odm](https://github.com/doctrine/mongodb-odm) library which provides a PHP object mapping functionality for MongoDB. This package which supports multiple connections and multi-collection transactions (use with caution).
 
 ## Installation
 
@@ -69,6 +69,8 @@ dm('db2')->persist($document);
 ```
 
 ## Multi Collection Transactions
+This approach is only possible if you do not rely on the built-in events system of doctrine, because odm is not aware of the transaction and fires the “post-flush” events as soon as the db command is executed.
+The other problem is that after a rollback the unit of work is in an inconsistent state which must be handled “manually” (e.g. clear or restore the state the uow had before the flush call).
 ```php
 dm()->startTransaction();
 try {

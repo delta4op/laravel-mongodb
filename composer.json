@@ -1,7 +1,8 @@
 {
-    "name": "delta4op/laravel-mongodb-odm",
+    "name": "delta4op/laravel-mongodb",
     "description": "A lightweight Laravel wrapper around Doctrine's mongodb-odm Document Mapper",
     "licent": "MIT",
+    "homepage": "https://github.com/delta4op/laravel-mongodb",
     "authors": [
         {
             "name": "Ravish",
@@ -60,6 +61,5 @@
             }
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "dev"
 }

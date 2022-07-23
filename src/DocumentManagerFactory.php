@@ -7,22 +7,11 @@ use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\DocumentManager as DoctrineDocumentManager;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Doctrine\ODM\MongoDB\MongoDBException;
-use Illuminate\Contracts\Foundation\Application;
 use MongoDB\Client;
 
 class DocumentManagerFactory
 {
-    /**
-     * The application instance.
-     *
-     * @var Application
-     */
-    protected Application $app;
-
-    public function __construct()
-    {
-
-    }
+    public function __construct() {}
 
     /**
      * @param $config
@@ -31,6 +20,8 @@ class DocumentManagerFactory
      */
     public function make($config): DoctrineDocumentManager
     {
+        // todo validate connection config array
+
         return DoctrineDocumentManager::create(
             $this->makeConnection($config),
             $this->makeConfiguration($config)
