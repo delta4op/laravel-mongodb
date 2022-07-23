@@ -49,14 +49,29 @@ class DocumentManagerFactory
     protected function makeConfiguration(array $config): Configuration
     {
         $configuration = new Configuration();
-        $configuration->setProxyDir($config['proxies']['path']);
-        $configuration->setProxyNamespace($config['proxies']['namespace']);
-        $configuration->setHydratorDir($config['hydrators']['path']);
-        $configuration->setHydratorNamespace($config['hydrators']['namespace']);
-        $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['paths']));
-        $configuration->setDefaultDB($config['database']);
-        $configuration->setDefaultDocumentRepositoryClassName($config['default_document_repository']);
-//        $config->setMetadataDriverImpl(new XmlDriver($config['metadata']));
+
+        if(isset($config['proxies'])) {
+            $configuration->setProxyDir($config['proxies']['path']);
+            $configuration->setProxyNamespace($config['proxies']['namespace']);
+        }
+
+        if(isset($config['hydrators'])) {
+            $configuration->setHydratorDir($config['hydrators']['path']);
+            $configuration->setHydratorNamespace($config['hydrators']['namespace']);
+        }
+
+        if(isset($config['paths'])) {
+            $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['paths']));
+        }
+
+        if($config['database']) {
+            $configuration->setDefaultDB($config['database']);
+        }
+
+        if(isset($config['defaultRepository'])) {
+            $configuration->setDefaultDocumentRepositoryClassName($config['defaultRepository']);
+        }
+
         $configuration->setDefaultCommitOptions([]);
 
         return $configuration;
