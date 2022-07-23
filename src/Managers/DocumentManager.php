@@ -22,7 +22,7 @@ class DocumentManager extends BaseDocumentManager
 
     public static function create(?Client $client = null, ?Configuration $config = null, ?EventManager $eventManager = null): DocumentManager
     {
-        return static::create($client, $config, $eventManager);
+        return new static($client, $config, $eventManager);
     }
 
     /**

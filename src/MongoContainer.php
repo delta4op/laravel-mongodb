@@ -28,9 +28,9 @@ class MongoContainer
     /**
      * The active connection instances.
      *
-     * @var array<Client>
+     * @var array<string, DocumentManager>
      */
-    protected array $connections = [];
+    protected array $managers = [];
 
     /**
      * Create a new document manager container instance.
@@ -55,11 +55,11 @@ class MongoContainer
 
         $config = $this->connectionConfig($name);
 
-        if (! isset($this->connections[$name])) {
-            $this->connections[$name] = $this->factory->make($config);
+        if (! isset($this->managers[$name])) {
+            $this->managers[$name] = $this->factory->make($config);
         }
 
-        return $this->connections[$name];
+        return $this->managers[$name];
     }
 
     /**
