@@ -12,11 +12,11 @@ abstract class Document
     use Common;
 
     /**
-     * Collection name
+     * Connection name
      *
      * @var null|string
      */
-    const CONNECTION = 'cms';
+    const CONNECTION = null;
 
     /**
      * @return DocumentRepository
