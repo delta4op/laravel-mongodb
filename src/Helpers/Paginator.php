@@ -15,12 +15,20 @@ class Paginator
 
     protected Builder $queryBuilder;
 
+    protected $currentPage = 1;
+
+    protected $perPage = 50;
+
+    protected int $totalResultCount;
+
     /**
      * @param Builder $queryBuilder
+     * @throws MongoDBException
      */
     protected function __construct(Builder $queryBuilder)
     {
         $this->queryBuilder = $queryBuilder;
+        $this->totalResultCount = (clone $this->queryBuilder)->count()->getQuery()->execute();
     }
 
     /**
@@ -28,6 +36,7 @@ class Paginator
      *
      * @param Builder $queryBuilder
      * @return static
+     * @throws MongoDBException
      */
     public static function create(Builder $queryBuilder): static
     {
@@ -40,7 +49,7 @@ class Paginator
      */
     public function perPage(int $val): static
     {
-        if($val < 0){
+        if ($val < 0) {
             throw new InvalidArgumentException('value should be 0 or greater');
         }
 
@@ -55,7 +64,7 @@ class Paginator
      */
     public function currentPage(int $val): static
     {
-        if($val < 0){
+        if ($val < 0) {
             throw new InvalidArgumentException('value should be 0 or greater');
         }
 
@@ -66,21 +75,60 @@ class Paginator
 
     /**
      * @param bool $asArray
-     * @return array|Iterator|int|DeleteResult|UpdateResult|InsertOneResult|null
      * @throws MongoDBException
      */
-    public function getResult(bool $asArray = true): array|Iterator|int|DeleteResult|UpdateResult|InsertOneResult|null
+    public function getResult(bool $asArray = true, bool $withPaginationDetails = true)
     {
-        $result = $this->queryBuilder
-            ->limit($this->perPage)
-            ->skip(($this->currentPage - 1))
-            ->getQuery()
-            ->execute();
+        $currentResultCount = $this->getPaginatedBuilder()->count()->getQuery()->execute();
 
-        if($asArray) {
+        $result = $this->getPaginatedBuilder()->getQuery()->execute();
+        if ($asArray) {
             $result = $result->toArray();
         }
 
-        return $result;
+        $paginationDetails = null;
+
+        if($withPaginationDetails) {
+            $paginationDetails = [
+                'currentPage' => $this->currentPage,
+                'perPage' => $this->perPage,
+                'total' => $this->totalResultCount,
+                'currentUrl' => request()->fullUrl(),
+                'prevUrl' => null,
+                'nextUrl' => null
+            ];
+
+            if($this->currentPage > 1) {
+                $query = request()->query();
+                $query['page'] = $this->currentPage - 1;
+                $paginationDetails['prevUrl'] = request()->url() . '?' . http_build_query($query);
+            }
+
+            if($currentResultCount < $this->totalResultCount) {
+                $query = request()->query();
+                $query['page'] = isset($query['page']) ? ++$query['page'] : 2;
+                $paginationDetails['nextUrl'] = request()->url() . '?' . http_build_query($query);
+            }
+        }
+
+
+        return [$result, $paginationDetails];
+    }
+
+    public function getPaginatedBuilder(): Builder
+    {
+        $builder = (clone $this->queryBuilder)
+            ->limit($this->perPage)
+            ->skip(($this->currentPage - 1));
+
+        return $builder;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function hasMoreResults(): bool
+    {
+        return $this->totalResultCount > ($this->currentPage * $this->perPage);
     }
 }
