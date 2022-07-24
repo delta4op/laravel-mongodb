@@ -19,6 +19,16 @@ abstract class Document
     const CONNECTION = null;
 
     /**
+     * Returns primary key
+     *
+     * @return null
+     */
+    public function getKey()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return DocumentRepository
      */
     public static function repository(): DocumentRepository

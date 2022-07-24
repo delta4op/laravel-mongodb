@@ -2,9 +2,6 @@
 
 namespace Delta4op\Mongodb\Traits;
 
-use Carbon\Carbon;
-use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
-
 trait HasDefaultAttributes
 {
     /**
