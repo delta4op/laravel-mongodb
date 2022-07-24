@@ -4,10 +4,10 @@ use Delta4op\Mongodb\Repositories\DocumentRepository;
 
 return [
 
-    'default' => 'cms',
+    'default' => 'mongodb',
 
     'connections' => [
-        'c1' => [
+        'mongodb' => [
             'driver' => env('DB_CONNECTION'),
             'dsn' => env('DB_URI'),
             'database' => env('DB_DATABASE'),

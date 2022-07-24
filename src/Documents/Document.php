@@ -2,10 +2,10 @@
 
 namespace Delta4op\Mongodb\Documents;
 
-use Delta4op\Mongodb\Repositories\DocumentRepository;
 use Delta4op\Mongodb\Facades\Mongodb;
+use Delta4op\Mongodb\Managers\DocumentManager;
 use Doctrine\ODM\MongoDB\Query\Builder;
-use Illuminate\Support\Str;
+use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
 abstract class Document
 {
@@ -14,75 +14,31 @@ abstract class Document
     /**
      * Collection name
      *
-     * @var string
+     * @var null|string
      */
-    protected string $collection;
-    /**
-     * The primary key for the model.
-     *
-     * @var string
-     */
-    protected string $primaryKey = 'id';
+    const CONNECTION = 'cms';
 
     /**
-     * The "type" of the primary key ID.
-     *
-     * @var string
+     * @return DocumentRepository
      */
-    protected string $keyType = 'string';
-
-    /**
-     * Returns name of the collection the document belongs to
-     *
-     * @return string
-     */
-    public function getCollectionName() : string
+    public static function repository(): DocumentRepository
     {
-        return $this->collection ?? Str::snake(Str::pluralStudly(class_basename($this)));
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKey(): string
-    {
-        return $this->{$this->getKeyName()};
-    }
-
-    /**
-     * Get the auto-incrementing key type.
-     *
-     * @return string
-     */
-    public function getKeyType(): string
-    {
-        return $this->keyType;
-    }
-
-    /**
-     * Get the primary key for the model.
-     *
-     * @return string
-     */
-    public function getKeyName(): string
-    {
-        return $this->primaryKey;
+        return static::getManager()->getRepository(static::class);
     }
 
     /**
      * @return Builder
      */
-    public static function queryBuilder(): Builder
+    public static function query(): Builder
     {
-        return Mongodb::createQueryBuilder(get_called_class());
+        return static::getManager()->createQueryBuilder(static::class);
     }
 
-    abstract public static function repository(): DocumentRepository;
-
-    public function toArray(): array
+    /**
+     * @return DocumentManager
+     */
+    public static function getManager(): DocumentManager
     {
-        return [];
+        return Mongodb::manager(static::CONNECTION ?? null);
     }
 }

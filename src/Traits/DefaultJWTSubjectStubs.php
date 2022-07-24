@@ -11,7 +11,7 @@ trait DefaultJWTSubjectStubs
      */
     public function getJWTIdentifier(): mixed
     {
-        return $this->getKey();
+        return $this->id;
     }
 
     /**

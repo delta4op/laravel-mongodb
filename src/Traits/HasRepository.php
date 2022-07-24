@@ -2,7 +2,7 @@
 
 namespace Delta4op\Mongodb\Traits;
 
-use Delta4op\Mongodb\DocumentRepositories\DocumentRepository;
+use Delta4op\Mongodb\Repositories\DocumentRepository;
 use Delta4op\Mongodb\Facades\Mongodb;
 
 trait HasRepository
@@ -12,6 +12,6 @@ trait HasRepository
      */
     public static function repository(): DocumentRepository
     {
-        return Mongodb::getRepository(get_called_class());
+        return Mongodb::manager()->getRepository(get_called_class());
     }
 }
