@@ -39,7 +39,7 @@ abstract class Document
     /**
      * @return Builder
      */
-    public static function query(): Builder
+    public static function queryBuilder(): Builder
     {
         return static::getManager()->createQueryBuilder(static::class);
     }
