@@ -13,7 +13,7 @@ class CarbonDate extends Type
 
     public function convertToDatabaseValue($value): ?UTCDateTime
     {
-        return !$value ? new UTCDateTime($value) : null;
+        return isset($value) ? new UTCDateTime($value) : null;
     }
 
     /**
