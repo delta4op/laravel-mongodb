@@ -2,9 +2,9 @@
 
 namespace Delta4op\Mongodb\Types;
 
-use Carbon\Carbon;
 use Doctrine\ODM\MongoDB\Types\ClosureToPHP;
 use Doctrine\ODM\MongoDB\Types\Type;
+use Illuminate\Support\Carbon;
 use MongoDB\BSON\UTCDateTime;
 
 class CarbonDate extends Type

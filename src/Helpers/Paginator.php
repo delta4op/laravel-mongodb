@@ -2,13 +2,9 @@
 
 namespace Delta4op\Mongodb\Helpers;
 
-use Doctrine\ODM\MongoDB\Iterator\Iterator;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use Doctrine\ODM\MongoDB\Query\Builder;
 use InvalidArgumentException;
-use MongoDB\DeleteResult;
-use MongoDB\InsertOneResult;
-use MongoDB\UpdateResult;
 
 class Paginator
 {
