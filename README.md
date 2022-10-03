@@ -109,7 +109,7 @@ $repository->findOnBy([...])
 $repository->findBy([...]);
 $repository->findAll();
 ```
-For more details check (this)[https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#document-repositories]
+For more details check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#document-repositories)
 
 ## Creating Custom Repository
 If you create custom repository for a collection then mention it as following
@@ -146,14 +146,14 @@ class User extends Document {
 
 }
 ```
-Check (this)[https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#custom-repositories] for more details on creating custom repository
+Check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#custom-repositories) for more details on creating custom repository
 
 ## Using Query Builder
 ```PHP
 $qb = User::queryBuilder();
 $qb->field('email')->equals('test@sysotel.com')->getQuery()->execute()->toArray();
 ```
-For more details check (this)[https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/query-builder-api.html#query-builder-api]
+For more details check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/query-builder-api.html#query-builder-api)
 
 ## Multi Collection Transactions
 This approach is only possible if you do not rely on the built-in events system of doctrine, because odm is not aware of the transaction and fires the “post-flush” events as soon as the db command is executed.
