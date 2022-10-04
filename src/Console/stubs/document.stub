@@ -1,0 +1,15 @@
+<?php
+
+namespace {{ namespace }};
+use Delta4op\Mongodb\Documents\Document;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
+/**
+ * @ODM\Document(
+ *     collection="{{ collection }}",
+ * )
+ */
+class {{ class }} extends Document
+{
+
+}

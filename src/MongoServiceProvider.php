@@ -2,6 +2,7 @@
 
 namespace Delta4op\Mongodb;
 
+use Delta4op\Mongodb\Console\Commands\DocumentMakeCommand;
 use Doctrine\ODM\MongoDB\Types\Type;
 use Delta4op\Mongodb\Types\CarbonDate;
 use Spatie\LaravelPackageTools\Package;
@@ -24,6 +25,12 @@ class MongoServiceProvider extends PackageServiceProvider
         $this->publishes([
             __DIR__.'/../config/mongodb.php' => config_path('mongodb.php'),
         ]);
+
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                DocumentMakeCommand::class,
+            ]);
+        }
     }
 
     /**

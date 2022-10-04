@@ -37,8 +37,8 @@ return [
             'database' => env('DB_DATABASE'),
 
             'defaultRepository' => DocumentRepository::class,
-            'paths' => [base_path('app/Services/ODM/Documents')],
-            'metadata' => [base_path('app/Services/ODM/Metadata')],
+            'paths' => [base_path('Commands/Services/ODM/Documents')],
+            'metadata' => [base_path('Commands/Services/ODM/Metadata')],
 
             'proxies' => [
                 'namespace' => 'Proxies',
