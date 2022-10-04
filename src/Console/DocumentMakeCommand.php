@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class DocumentMakeCommand extends GeneratorCommand
 {
-    public $signature = 'make:document {name} {--collection=} {--e|embedded=}';
+    public $signature = 'make:document {name} {--collection=} {--e|embedded}';
 
     public $description = 'Create a new document class';
 
@@ -21,14 +21,14 @@ class DocumentMakeCommand extends GeneratorCommand
 
     protected function isEmbeddedDocument(): bool
     {
-        return $this->hasOption('embedded');
+        return $this->options()['embedded'] === true;
     }
 
     public function getBaseDocumentName()
     {
         return $this->isEmbeddedDocument()
-            ? config('makeDocument.baseDocument', 'Delta4op\Mongodb\Documents\Document')
-            : config('makeDocument.baseEmbeddedDocument', 'Delta4op\Mongodb\Documents\EmbeddedDocument');
+            ? config('makeDocument.baseEmbeddedDocument', 'Delta4op\Mongodb\Documents\EmbeddedDocument')
+            : config('makeDocument.baseDocument', 'Delta4op\Mongodb\Documents\Document');
     }
 
     /**
@@ -59,11 +59,11 @@ class DocumentMakeCommand extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
 
+        dd($this->getBaseDocumentName());
         $stub = str_replace('{{ baseDocument }}', $this->getBaseDocumentName(), $stub);
         $stub = str_replace('{{ baseDocumentShortName }}', $this->getBaseDocumentShortName(), $stub);
 
         if(!$this->isEmbeddedDocument()) {
-
             $stub = str_replace('{{ collection }}', $this->getCollectionName(), $stub);
         }
 
