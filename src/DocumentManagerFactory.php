@@ -75,7 +75,7 @@ class DocumentManagerFactory
     {
         $configuration = new Configuration();
 
-        $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['paths']));
+        $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['path']));
         $configuration->setDefaultDB($config['database']);
         $configuration->setDefaultDocumentRepositoryClassName(
             $config['defaultRepository'] ?? $this->defaultRepositoryClassName()

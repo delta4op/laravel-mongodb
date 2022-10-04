@@ -16,16 +16,37 @@ class DocumentMakeCommand extends GeneratorCommand
     public function __construct(Filesystem $files)
     {
         parent::__construct($files);
+    }
 
-        if(!$this->hasArgument('collection')) {
+    protected function buildClass($name): string
+    {
+        $stub = $this->files->get($this->getStub());
+
+        $baseDocumentName = config('defaultDocument', 'Delta4op\Mongodb\Documents\Document');
+        $baseDocumentNameExplode = explode('\\', $baseDocumentName);
+        $baseDocumentShortName = $baseDocumentNameExplode[count($baseDocumentNameExplode) - 1];
+
+        $collection = $this->hasOption('collection')
+            ? $this->option('collection')
+            : Str::snake(Str::pluralStudly($this->argument('name')));
+
+        $stub = str_replace('{{ collection }}', $collection, $stub);
+        $stub = str_replace('{{ baseDocument }}', $baseDocumentName, $stub);
+        $stub = str_replace('{{ baseDocumentShortName }}', $baseDocumentShortName, $stub);
+
+        if(!$this->hasOption('collection')) {
 
             $name = $this->argument('name');
 
-            $this->addArgument(
+            $this->input->setArgument(
                 'collection',
                 Str::snake(Str::pluralStudly($name))
             );
         }
+
+
+
+        return $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
     }
 
     /**
@@ -33,6 +54,8 @@ class DocumentMakeCommand extends GeneratorCommand
      */
     protected function getStub(): string
     {
+
+
         $relativePath = '/stubs/document.stub';
 
         return __DIR__.$relativePath;
@@ -45,7 +68,7 @@ class DocumentMakeCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace): string
     {
         return config(
-            'mongodb.defaultDocument',
+            'mongodb.path',
             $rootNamespace.'\Mongo\Documents'
         );
     }
@@ -60,6 +83,8 @@ class DocumentMakeCommand extends GeneratorCommand
         return [
             ['class', InputArgument::REQUIRED, 'The name of the document class'],
             ['collection', InputArgument::REQUIRED, 'The name of the collection'],
+            ['baseDocument', InputArgument::OPTIONAL, ''],
+            ['baseDocumentShortName', InputArgument::OPTIONAL, ''],
         ];
     }
 }

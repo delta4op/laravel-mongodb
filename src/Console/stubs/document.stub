@@ -1,7 +1,7 @@
 <?php
 
 namespace {{ namespace }};
-use Delta4op\Mongodb\Documents\Document;
+use {{ baseDocument }};
 use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 
 /**
@@ -9,7 +9,7 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
  *     collection="{{ collection }}",
  * )
  */
-class {{ class }} extends Document
+class {{ class }} extends {{ baseDocumentShortName }}
 {
 
 }

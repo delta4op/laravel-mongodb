@@ -33,7 +33,7 @@ return [
              * Mandatory field
              * Paths to folders that contains documents
              */
-            'paths' => [base_path('Commands/Mongo/Documents')],
+            'path' => base_path('Commands/Mongo/Documents'),
 
             /**
              * Optional
