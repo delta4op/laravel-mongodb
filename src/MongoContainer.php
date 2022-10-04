@@ -7,7 +7,6 @@ use Doctrine\ODM\MongoDB\MongoDBException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
-use MongoDB\Client;
 
 class MongoContainer
 {

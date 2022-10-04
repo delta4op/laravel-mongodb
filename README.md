@@ -57,27 +57,115 @@ return [
 ];
 ```
 
-## Accessing document manager
+## `Document` and `Embedded Document` base classes
+Every document and embedded document that you create should extend the base classes respectively.
+```php
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Delta4op\Mongodb\Documents\Document;
+
+/**
+* @ODM\Document(collection="users")
+*/
+class User extends Document {
+
+}
+```
+
+```php
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Delta4op\Mongodb\Documents\EmbeddedDocument;
+
+/**
+* @ODM\EmbeddedDocument
+*/
+class Address extends EmbeddedDocument {
+
+}
+```
+
+## Getting Mongodb Manager
+```php
+// this command will return the default database connection defined as per config/mongodb.php
+$dm = Mongodb::manager()
+
+// this will return specific connection
+$dm = Mongodb::manager('db2');
+
+// There are helper methods that can be used alternatively as following
+$dm = dm(); // similar to Mongodb::manager();
+$dm = dm('db2'); // similar to  Mongodb::manager('db2')
+```
+
+## Saving document
 ```php
 Mongodb::manager()->persist($document);
-
-// specify connection
-Mongodb::manager('db2')->persist($document);
-
-// helper method
-dm('db2')->persist($document);
 ```
+
+## Using Document repository
+```php
+$repository = User::repository();
+$repository->find(123);
+$repository->findOnBy([...])
+$repository->findBy([...]);
+$repository->findAll();
+```
+For more details check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#document-repositories)
+
+## Creating Custom Repository
+If you create custom repository for a collection then mention it as following
+```php
+use Delta4op\Mongodb\Repositories\DocumentRepository;
+
+class UserRepository extends DocumentRepository {
+
+    public function findActiveUsers()
+    {
+        return $this->findBy([
+            'status' => 'ACTIVE'
+        ]);
+    }
+}
+```
+using repository
+```php
+$repository = User::repository();
+$activeUsers = $repository->findActiveUsers();
+```
+Define repository in document meta
+```php
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+use Delta4op\Mongodb\Documents\Document;
+
+/**
+* @ODM\Document(
+*   collection="users",
+*   repositoryClass=Repositories\UserRepository::class
+* )
+*/
+class User extends Document {
+
+}
+```
+Check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/document-repositories.html#custom-repositories) for more details on creating custom repository
+
+## Using Query Builder
+```PHP
+$qb = User::queryBuilder();
+$qb->field('email')->equals('test@sysotel.com')->getQuery()->execute()->toArray();
+```
+For more details check [this](https://www.doctrine-project.org/projects/doctrine-mongodb-odm/en/stable/reference/query-builder-api.html#query-builder-api)
 
 ## Multi Collection Transactions
 This approach is only possible if you do not rely on the built-in events system of doctrine, because odm is not aware of the transaction and fires the “post-flush” events as soon as the db command is executed.
 The other problem is that after a rollback the unit of work is in an inconsistent state which must be handled “manually” (e.g. clear or restore the state the uow had before the flush call).
 ```php
+Mongodb::manager();
 dm()->startTransaction();
 try {
-    
+
     // your code that will probably have
     // multiple document persists
-    
+
     dm()->flush(['session' => tdm()->getSession()]);
     dm()->commitTransaction();
 } catch (Exception $exception) {
