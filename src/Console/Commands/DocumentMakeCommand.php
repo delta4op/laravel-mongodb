@@ -7,7 +7,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class DocumentMakeCommand extends GeneratorCommand
 {
-    public $signature = 'make:document';
+    public $signature = 'make:document {name} {--collection=}';
 
     public $description = 'Command to create mongo document';
 
