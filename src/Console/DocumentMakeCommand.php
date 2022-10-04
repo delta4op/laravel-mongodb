@@ -1,15 +1,32 @@
 <?php
 
-namespace Delta4op\Mongodb\Console\Commands;
+namespace Delta4op\Mongodb\Console;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Str;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DocumentMakeCommand extends GeneratorCommand
 {
     public $signature = 'make:document {name} {--collection=}';
 
-    public $description = 'Command to create mongo document';
+    public $description = 'Create a new document class';
+
+    public function __construct(Filesystem $files)
+    {
+        parent::__construct($files);
+
+        if(!$this->hasArgument('collection')) {
+
+            $name = $this->argument('name');
+
+            $this->addArgument(
+                'collection',
+                Str::snake(Str::pluralStudly($name))
+            );
+        }
+    }
 
     /**
      * @return string
@@ -27,7 +44,10 @@ class DocumentMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace): string
     {
-        return $rootNamespace.'\Mongo\Documents';
+        return config(
+            'mongodb.defaultDocument',
+            $rootNamespace.'\Mongo\Documents'
+        );
     }
 
     /**

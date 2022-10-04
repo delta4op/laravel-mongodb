@@ -2,9 +2,9 @@
 
 namespace Delta4op\Mongodb;
 
-use Delta4op\Mongodb\Console\Commands\DocumentMakeCommand;
-use Doctrine\ODM\MongoDB\Types\Type;
+use Delta4op\Mongodb\Console\DocumentMakeCommand;
 use Delta4op\Mongodb\Types\CarbonDate;
+use Doctrine\ODM\MongoDB\Types\Type;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
