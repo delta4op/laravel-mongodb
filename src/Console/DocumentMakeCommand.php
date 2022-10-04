@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 class DocumentMakeCommand extends GeneratorCommand
 {
-    public $signature = 'make:document {name} {--collection=} {--e|embedded}';
+    public $signature = 'make:document {name} {--c|collection=} {--e|embedded}';
 
     public $description = 'Create a new document class';
 
