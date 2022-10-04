@@ -9,13 +9,6 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class MongoServiceProvider extends PackageServiceProvider
 {
-    /**
-     * Custom type mappings
-     *
-     * @var array
-     */
-    public array $types = [];
-
     public function configurePackage(Package $package): void
     {
         $package->name('delta4op/laravel-mongodb')->hasConfigFile('mongodb');
@@ -26,7 +19,8 @@ class MongoServiceProvider extends PackageServiceProvider
      *
      * @return void
      */
-    public function bootingPackage() {
+    public function bootingPackage(): void
+    {
         $this->publishes([
             __DIR__.'/../config/mongodb.php' => config_path('mongodb.php'),
         ]);
@@ -37,7 +31,7 @@ class MongoServiceProvider extends PackageServiceProvider
      *
      * @return void
      */
-    public function registeringPackage()
+    public function registeringPackage(): void
     {
         // The factory class is used to create the document manager instances
         // We will inject the factory into the mongo container so that it may
@@ -61,12 +55,14 @@ class MongoServiceProvider extends PackageServiceProvider
      *
      * @return void
      */
-    protected function registerCustomTypes()
+    protected function registerCustomTypes(): void
     {
         Type::registerType('carbon', CarbonDate::class);
 
-        foreach($this->types as $name => $class) {
-            Type::registerType($name, $class);
+        if(($types = config('mongodb.types')) && is_array($types)) {
+            foreach($types as $name => $class) {
+                Type::registerType($name, $class);
+            }
         }
     }
 }

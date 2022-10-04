@@ -7,6 +7,7 @@ use Doctrine\ODM\MongoDB\MongoDBException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use InvalidArgumentException;
+use Throwable;
 
 class MongoContainer
 {
@@ -44,21 +45,22 @@ class MongoContainer
     }
 
     /**
-     * @param string|null $name
+     * @param string|null $connectionName
      * @return DocumentManager
      * @throws MongoDBException
+     * @throws Throwable
      */
-    public function manager(string $name = null): DocumentManager
+    public function manager(string $connectionName = null): DocumentManager
     {
-        $name = $name ?? $this->defaultConnectionName();
+        $connectionName = $connectionName ?? $this->defaultConnectionName();
 
-        $config = $this->connectionConfig($name);
+        $config = $this->connectionConfig($connectionName);
 
-        if (! isset($this->managers[$name])) {
-            $this->managers[$name] = $this->factory->make($config);
+        if (! isset($this->managers[$connectionName])) {
+            $this->managers[$connectionName] = $this->factory->make($connectionName, $config);
         }
 
-        return $this->managers[$name];
+        return $this->managers[$connectionName];
     }
 
     /**

@@ -2,28 +2,54 @@
 
 namespace Delta4op\Mongodb;
 
+use Delta4op\Mongodb\Exception\InvalidConfigurationException;
 use Delta4op\Mongodb\Managers\DocumentManager;
+use Delta4op\Mongodb\Repositories\DocumentRepository;
 use Doctrine\ODM\MongoDB\Configuration;
 use Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver;
 use Doctrine\ODM\MongoDB\MongoDBException;
 use MongoDB\Client;
+use Throwable;
 
 class DocumentManagerFactory
 {
     public function __construct() {}
 
     /**
-     * @param $config
+     * @param string $connectionName
+     * @param array $config
      * @return DocumentManager
      * @throws MongoDBException
+     * @throws Throwable
      */
-    public function make($config): DocumentManager
+    public function make(string $connectionName, array $config): DocumentManager
     {
-        // todo validate connection config array
+        $this->validateConfig($connectionName, $config);
 
         return DocumentManager::create(
             $this->makeConnection($config),
             $this->makeConfiguration($config)
+        );
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function validateConfig(string $connectionName, array $config): void
+    {
+        throw_if(
+            !isset($config['dsn']) < 1,
+            new InvalidConfigurationException("dsn not defined for connection $connectionName")
+        );
+
+        throw_if(
+            !isset($config['database']) < 1,
+            new InvalidConfigurationException("database not defined for connection $connectionName")
+        );
+
+        throw_if(
+            !isset($config['paths']) < 1,
+            new InvalidConfigurationException("paths not defined for connection $connectionName")
         );
     }
 
@@ -49,30 +75,74 @@ class DocumentManagerFactory
     {
         $configuration = new Configuration();
 
+        $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['paths']));
+        $configuration->setDefaultDB($config['database']);
+        $configuration->setDefaultDocumentRepositoryClassName(
+            $config['defaultRepository'] ?? $this->defaultRepositoryClassName()
+        );
+
         if(isset($config['proxies'])) {
-            $configuration->setProxyDir($config['proxies']['path']);
-            $configuration->setProxyNamespace($config['proxies']['namespace']);
+            $configuration->setProxyDir(
+                $config['proxies']['path'] ?? $this->defaultProxyPath()
+            );
+
+            $configuration->setProxyNamespace(
+                $config['proxies']['namespace'] ?? $this->defaultProxyNamespace()
+            );
         }
 
         if(isset($config['hydrators'])) {
-            $configuration->setHydratorDir($config['hydrators']['path']);
-            $configuration->setHydratorNamespace($config['hydrators']['namespace']);
-        }
+            $configuration->setHydratorDir(
+                $config['hydrators']['path'] ?? $this->defaultHydratorsPath()
+            );
 
-        if(isset($config['paths'])) {
-            $configuration->setMetadataDriverImpl(AnnotationDriver::create($config['paths']));
-        }
-
-        if($config['database']) {
-            $configuration->setDefaultDB($config['database']);
-        }
-
-        if(isset($config['defaultRepository'])) {
-            $configuration->setDefaultDocumentRepositoryClassName($config['defaultRepository']);
+            $configuration->setHydratorNamespace(
+                $config['hydrators']['namespace'] ?? $this->defaultHydratorsNamespace()
+            );
         }
 
         $configuration->setDefaultCommitOptions([]);
 
         return $configuration;
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultProxyPath(): string
+    {
+        return storage_path('proxies');
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultProxyNamespace(): string
+    {
+        return 'Proxies';
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultHydratorsPath(): string
+    {
+        return storage_path('hydrators');
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultHydratorsNamespace(): string
+    {
+        return 'Hydrators';
+    }
+
+    /**
+     * @return string
+     */
+    public function defaultRepositoryClassName(): string
+    {
+        return DocumentRepository::class;
     }
 }
