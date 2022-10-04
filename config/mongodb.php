@@ -4,15 +4,6 @@ return [
 
     'default' => env('MONGO_DEFAULT_CONNECTION', 'mongodb'),
 
-    /**
-     * Define custom types over here
-     * Refer to below link for more info
-     * https://github.com/delta4op/laravel-mongodb/wiki
-     */
-    'types' => [
-        // 'customType' => 'customTypeClass'
-    ],
-
     'connections' => [
 
         'mongodb' => [
@@ -33,7 +24,7 @@ return [
              * Mandatory field
              * Paths to folders that contains documents
              */
-            'path' => base_path('Commands/Mongo/Documents'),
+            'paths' => [base_path('app/Mongo/Documents')],
 
             /**
              * Optional
@@ -77,6 +68,26 @@ return [
                 'namespace' => 'Hydrators',
                 'path' => storage_path('hydrators'),
             ],
+        ],
+
+        /**
+         * Define custom types over here
+         * Refer to below link for more info
+         * https://github.com/delta4op/laravel-mongodb/wiki
+         */
+        'types' => [
+            // 'customType' => 'customTypeClass'
+        ],
+
+        /**
+         * Settings for make:document and make:embeddedDocument command
+         * Root directory that it points to and
+         * Base Document that the generated document should extend
+         */
+        'makeDocument' => [
+            'directory' => base_path('app/Mongodb/Documents'),
+            'baseDocument' => Delta4op\Mongodb\Documents\Document::class,
+            'baseEmbeddedDocument' => Delta4op\Mongodb\Documents\EmbeddedDocument::class,
         ],
     ],
 ];
