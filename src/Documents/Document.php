@@ -17,6 +17,14 @@ abstract class Document
     const CONNECTION = null;
 
     /**
+     * @return static
+     */
+    public static function make(): static
+    {
+        return new static;
+    }
+
+    /**
      * Returns primary key
      *
      * @return null
