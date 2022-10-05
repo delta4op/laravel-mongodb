@@ -6,8 +6,9 @@ trait HasDefaultAttributes
 {
     /**
      * @ODM\PrePersist
+     * @return self
      */
-    public function setDefaults()
+    public function setDefaults(): self
     {
         if($this->hasDefaultsField()) {
             foreach($this->getDefaults() as $key => $value) {
@@ -16,6 +17,8 @@ trait HasDefaultAttributes
                 }
             }
         }
+
+        return $this;
     }
 
     /**

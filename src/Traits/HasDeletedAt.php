@@ -11,23 +11,31 @@ trait HasDeletedAt
      * @var \Illuminate\Support\Carbon
      * @ODM\Field(type="carbon")
      */
-    public $deletedAt;
+    private $deletedAt;
+
+    /**
+     * @return \Illuminate\Support\Carbon
+     */
+    public function getDeletedAt(): \Illuminate\Support\Carbon
+    {
+        return $this->deletedAt;
+    }
+
+    /**
+     * @param \Illuminate\Support\Carbon $deletedAt
+     */
+    public function setDeletedAt(\Illuminate\Support\Carbon $deletedAt): void
+    {
+        $this->deletedAt = $deletedAt;
+    }
 
     /**
      * @return self
      */
     public function markAsDeleted(): self
     {
-        $this->{$this->deletedAtFieldName()} = now();
+        $this->setDeletedAt(now());
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function deletedAtFieldName(): string
-    {
-        return 'deletedAt';
     }
 }

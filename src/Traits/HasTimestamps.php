@@ -8,66 +8,70 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
 trait HasTimestamps
 {
     /**
-     * @var Carbon
+     * @var ?Carbon
      * @ODM\Field(type="carbon")
     */
     public $createdAt;
 
     /**
-     * @var Carbon
+     * @var ?Carbon
      * @ODM\Field(type="carbon")
      */
     public $updatedAt;
 
     /**
-     * @ODM\PrePersist
+     * @return Carbon
      */
-    public function markCreatedAtTimestamp()
+    public function getCreatedAt(): Carbon
     {
-        if(!isset($this->{$this->createdAtFieldName()})){
-            $this->{$this->createdAtFieldName()} = now();
-        }
+        return $this->createdAt;
+    }
+
+    /**
+     * @param Carbon $createdAt
+     * @return self
+     */
+    public function setCreatedAt(Carbon $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Carbon
+     */
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param Carbon $updatedAt
+     * @return self
+     */
+    public function setUpdatedAt(Carbon $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @ODM\PrePersist
+     * @return self
+     */
+    public function markCreatedAtTimestamp(): self
+    {
+        return $this->setCreatedAt(now());
     }
 
     /**
      * @ODM\PreUpdate
+     * @return self
      */
-    public function markUpdatedAtTimestamp()
+    public function markUpdatedAtTimestamp(): self
     {
-        if(!isset($this->{$this->updatedAtFieldName()})){
-            $this->{$this->updatedAtFieldName()} = now();
-        }
-    }
-
-    /**
-     * @return Carbon|null
-     */
-    public function createdAtTimestamp(): ?Carbon
-    {
-        return $this->{$this->createdAtFieldName()};
-    }
-
-    /**
-     * @return Carbon|null
-     */
-    public function updatedAtTimestamp(): ?Carbon
-    {
-        return $this->{$this->updatedAtFieldName()};
-    }
-
-    /**
-     * @return string
-     */
-    public function createdAtFieldName(): string
-    {
-        return 'createdAt';
-    }
-
-    /**
-     * @return string
-     */
-    public function updatedAtFieldName(): string
-    {
-        return 'updatedAt';
+        return $this->setUpdatedAt(now());
     }
 }
