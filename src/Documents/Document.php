@@ -9,8 +9,6 @@ use Doctrine\ODM\MongoDB\Repository\DocumentRepository;
 
 abstract class Document
 {
-    use Common;
-
     /**
      * Connection name
      *
