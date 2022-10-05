@@ -84,10 +84,15 @@ return [
          * Root directory that it points to and
          * Base Document that the generated document should extend
          */
-        'makeDocument' => [
-            'directory' => base_path('app/Mongodb/Documents'),
+        'createDocument' => [
+            'directory' => base_path('app/Mongo/Documents'),
             'baseDocument' => Delta4op\Mongodb\Documents\Document::class,
             'baseEmbeddedDocument' => Delta4op\Mongodb\Documents\EmbeddedDocument::class,
+        ],
+
+        'createRepository' => [
+            'directory' => base_path('app/Mongo/Repositories'),
+            'baseClass' => Delta4op\Mongodb\Repositories\DocumentRepository::class
         ],
     ],
 ];
