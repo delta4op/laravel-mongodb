@@ -2,6 +2,8 @@
 
 namespace Delta4op\Mongodb\Traits;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations as ODM;
+
 trait HasDefaultAttributes
 {
     /**
