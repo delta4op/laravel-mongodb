@@ -31,7 +31,7 @@ abstract class Document
      */
     public static function repository(): DocumentRepository
     {
-        return static::getManager()->getRepository(static::class);
+        return static::manager()->getRepository(static::class);
     }
 
     /**
@@ -39,13 +39,13 @@ abstract class Document
      */
     public static function queryBuilder(): Builder
     {
-        return static::getManager()->createQueryBuilder(static::class);
+        return static::manager()->createQueryBuilder(static::class);
     }
 
     /**
      * @return DocumentManager
      */
-    public static function getManager(): DocumentManager
+    public static function manager(): DocumentManager
     {
         return Mongodb::manager(static::CONNECTION ?? null);
     }
