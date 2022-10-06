@@ -59,7 +59,6 @@ class DocumentMakeCommand extends GeneratorCommand
     {
         $stub = $this->files->get($this->getStub());
 
-        dd($this->getBaseDocumentName());
         $stub = str_replace('{{ baseDocument }}', $this->getBaseDocumentName(), $stub);
         $stub = str_replace('{{ baseDocumentShortName }}', $this->getBaseDocumentShortName(), $stub);
 
