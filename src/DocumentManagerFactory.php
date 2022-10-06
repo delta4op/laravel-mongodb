@@ -38,17 +38,17 @@ class DocumentManagerFactory
     public function validateConfig(string $connectionName, array $config): void
     {
         throw_if(
-            !isset($config['dsn']) < 1,
+            !isset($config['dsn']),
             new InvalidConfigurationException("dsn not defined for connection $connectionName")
         );
 
         throw_if(
-            !isset($config['database']) < 1,
+            !isset($config['database']),
             new InvalidConfigurationException("database not defined for connection $connectionName")
         );
 
         throw_if(
-            !isset($config['paths']) < 1,
+            !isset($config['paths']),
             new InvalidConfigurationException("paths not defined for connection $connectionName")
         );
     }
