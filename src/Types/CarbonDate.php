@@ -27,7 +27,13 @@ class CarbonDate extends Type
         }
 
         if ($value instanceof UTCDateTime){
-            return (new Carbon($value->toDateTime()));
+            $instance = new Carbon($value->toDateTime());
+
+            if($tz = config('app.timezone')) {
+                $instance->setTimezone($tz);
+            }
+
+            return $instance;
         }
 
         return $value;
