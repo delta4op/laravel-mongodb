@@ -79,7 +79,6 @@ class Paginator
         $currentResultCount = $this->getPaginatedBuilder()->count()->getQuery()->execute();
 
         $result = $this->getPaginatedBuilder()->getQuery()->execute();
-        return $result;
         if ($asArray) {
             $result = $result->toArray();
         }
