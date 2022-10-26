@@ -101,7 +101,7 @@ class Paginator
                 $paginationDetails['prevUrl'] = request()->url() . '?' . http_build_query($query);
             }
 
-            if($currentResultCount < $this->totalResultCount) {
+            if($currentResultCount > 0) {
                 $query = request()->query();
                 $query['page'] = isset($query['page']) ? ++$query['page'] : 2;
                 $paginationDetails['nextUrl'] = request()->url() . '?' . http_build_query($query);
