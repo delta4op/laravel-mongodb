@@ -71,6 +71,7 @@ class Paginator
 
     /**
      * @param bool $asArray
+     * @param bool $withPaginationDetails
      * @throws MongoDBException
      */
     public function getResult(bool $asArray = true, bool $withPaginationDetails = true)
@@ -78,6 +79,7 @@ class Paginator
         $currentResultCount = $this->getPaginatedBuilder()->count()->getQuery()->execute();
 
         $result = $this->getPaginatedBuilder()->getQuery()->execute();
+        return $result;
         if ($asArray) {
             $result = $result->toArray();
         }
@@ -113,11 +115,9 @@ class Paginator
 
     public function getPaginatedBuilder(): Builder
     {
-        $builder = (clone $this->queryBuilder)
+        return (clone $this->queryBuilder)
             ->limit($this->perPage)
-            ->skip(($this->currentPage - 1));
-
-        return $builder;
+            ->skip(($this->currentPage - 1) * $this->perPage);
     }
 
     /**
