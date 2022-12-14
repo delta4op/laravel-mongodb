@@ -31,7 +31,7 @@ trait HasTimestamps
      * @param Carbon $createdAt
      * @return self
      */
-    public function setCreatedAt(Carbon $createdAt): self
+    public function setCreatedAt(Carbon $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -50,7 +50,7 @@ trait HasTimestamps
      * @param Carbon $updatedAt
      * @return self
      */
-    public function setUpdatedAt(Carbon $updatedAt): self
+    public function setUpdatedAt(Carbon $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
@@ -61,17 +61,25 @@ trait HasTimestamps
      * @ODM\PrePersist
      * @return self
      */
-    public function markCreatedAtTimestamp(): self
+    public function markCreatedAtTimestamp(): static
     {
-        return $this->setCreatedAt(now());
+        if(!$this->createdAt) {
+            $this->setCreatedAt(now());
+        }
+
+        return $this;
     }
 
     /**
      * @ODM\PreUpdate
      * @return self
      */
-    public function markUpdatedAtTimestamp(): self
+    public function markUpdatedAtTimestamp(): static
     {
-        return $this->setUpdatedAt(now());
+        if(!$this->createdAt) {
+            $this->setUpdatedAt(now());
+        }
+
+        return $this;
     }
 }
