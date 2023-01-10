@@ -20,18 +20,18 @@ trait HasTimestamps
     public $updatedAt;
 
     /**
-     * @return Carbon
+     * @return ?Carbon
      */
-    public function getCreatedAt(): Carbon
+    public function getCreatedAt(): ?Carbon
     {
         return $this->createdAt;
     }
 
     /**
-     * @param Carbon $createdAt
+     * @param ?Carbon $createdAt
      * @return self
      */
-    public function setCreatedAt(Carbon $createdAt): static
+    public function setCreatedAt(?Carbon $createdAt): static
     {
         $this->createdAt = $createdAt;
 
@@ -39,18 +39,18 @@ trait HasTimestamps
     }
 
     /**
-     * @return Carbon
+     * @return ?Carbon
      */
-    public function getUpdatedAt(): Carbon
+    public function getUpdatedAt(): ?Carbon
     {
         return $this->updatedAt;
     }
 
     /**
-     * @param Carbon $updatedAt
+     * @param ?Carbon $updatedAt
      * @return self
      */
-    public function setUpdatedAt(Carbon $updatedAt): static
+    public function setUpdatedAt(?Carbon $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 
