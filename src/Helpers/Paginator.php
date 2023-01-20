@@ -92,19 +92,23 @@ class Paginator
                 'total' => $this->totalResultCount,
                 'currentUrl' => request()->fullUrl(),
                 'prevUrl' => null,
-                'nextUrl' => null
+                'prevPage' => null,
+                'nextUrl' => null,
+                'nextPage' => null,
             ];
 
             if($this->currentPage > 1) {
                 $query = request()->query();
                 $query['page'] = $this->currentPage - 1;
                 $paginationDetails['prevUrl'] = request()->url() . '?' . http_build_query($query);
+                $paginationDetails['prevPage'] = $this->currentPage - 1;
             }
 
             if(($this->currentPage * $this->perPage) < $this->totalResultCount) {
                 $query = request()->query();
                 $query['page'] = isset($query['page']) ? ++$query['page'] : 2;
                 $paginationDetails['nextUrl'] = request()->url() . '?' . http_build_query($query);
+                $paginationDetails['nextPage'] = $this->currentPage + 1;
             }
         }
 
