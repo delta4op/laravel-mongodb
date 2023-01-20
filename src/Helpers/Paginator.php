@@ -90,6 +90,7 @@ class Paginator
                 'currentPage' => $this->currentPage,
                 'perPage' => $this->perPage,
                 'total' => $this->totalResultCount,
+                'totalPages' => ceil($this->totalResultCount / $this->perPage),
                 'currentUrl' => request()->fullUrl(),
                 'prevUrl' => null,
                 'prevPage' => null,
